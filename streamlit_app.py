@@ -97,7 +97,15 @@ if submitted:
         "diastolic_bp": float(diastolic_bp),
     }
 
-    probability = float(model.predict_proba(build_input_frame(values))[0][1])
+    try:
+        probability = float(model.predict_proba(build_input_frame(values))[0][1])
+    except AttributeError:
+        st.error(
+            "Prediction failed because the deployed scikit-learn and XGBoost versions are incompatible. "
+            "Redeploy the app after installing the versions pinned in requirements.txt."
+        )
+        st.stop()
+
     label = "Higher predicted risk" if probability >= PREDICTION_THRESHOLD else "Lower predicted risk"
 
     st.divider()

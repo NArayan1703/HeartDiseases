@@ -3,8 +3,3 @@
 .venv/
 __pycache__/
 *.pyc
-
-# Ignore app and main temporarily
-app.py
-main.py
-
